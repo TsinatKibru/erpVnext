@@ -29,8 +29,8 @@ model accounts {
 
 model employeeProfile {
   id             Int       @id @default(autoincrement())
-  firstName      String?   @map(name: "firstname")     // Map to firstname in the database
-  lastName       String?   @map(name: "lastname")      // Map to lastname in the database
+  firstname      String?   @map(name: "firstname")     // Map to firstname in the database
+  lastname       String?   @map(name: "lastname")      // Map to lastname in the database
   dateOfBirth    DateTime? @map(name: "dateofbirth")   // Map to dateofbirth in the database
   gender         String?   @map(name: "gender")        // Map to gender in the database
   email          String?   @map(name: "email")         // Map to email in the database
