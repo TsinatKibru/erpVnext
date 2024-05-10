@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate",
-    "prisma:deploy": "npx prisma db push"
+    "prisma:deploy": "prisma db push"
   },
   "dependencies": {
     "@prisma/client": "^5.13.0",
