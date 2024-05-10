@@ -3,12 +3,12 @@
   "version": "1.3.1",
   "private": true,
   "scripts": {
+    "postinstall": "prisma generate",
+    "prisma:deploy": "prisma migrate deploy", 
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "postinstall": "prisma generate",
-    "prisma:deploy": "prisma db push"
+    "lint": "next lint"   
   },
   "dependencies": {
     "@prisma/client": "^5.13.0",
