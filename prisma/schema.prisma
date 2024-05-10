@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+
+model accounts {
+  id        Int      @id @default(autoincrement())
+  name      String?
+  email     String   @unique
+  password  String
+  isAdmin     Boolean?        @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  employeeProfile employeeProfile?
+}
+
+model employeeProfile {
+  id            Int       @id @default(autoincrement())
+  firstname     String?
+  lastname      String?
+  dateOfBirth   DateTime?
+  gender        String?
+  email         String?
+  phone         String?
+  homeAddress   String?
+  dateOfHire    DateTime?
+  status        String?
+  profilePicture String?
+  role           String?
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // This field establishes a one-to-one relationship with accounts
+  accountId     Int?      @unique
+
+  // This field references the accounts table
+  account       accounts? @relation(fields: [accountId], references: [id])
+}

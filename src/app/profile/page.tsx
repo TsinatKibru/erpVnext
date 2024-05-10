@@ -1,16 +1,60 @@
+"use server";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import Image from "next/image";
-import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Link from "next/link";
+import { getUser } from "@/lib/dal";
+import { getUserProfileByAccountId } from "@/lib/user-profile.dal";
+import { showToast } from "@/components/Alert/Alert";
 
-export const metadata: Metadata = {
-  title: "Next.js Profile | TailAdmin - Next.js Dashboard Template",
-  description:
-    "This is Next.js Profile page for TailAdmin - Next.js Tailwind CSS Admin Dashboard Template",
-};
+// export const metadata: Metadata = {
+//   title: "Next.js Profile | TailAdmin - Next.js Dashboard Template",
+//   description:
+//     "This is Next.js Profile page for TailAdmin - Next.js Tailwind CSS Admin Dashboard Template",
+// };
 
-const Profile = () => {
+const Profile = async () => {
+  // let account;
+
+  // async function getUserProfile() {
+  //   try {
+  //     const account = await getUser(); // Assuming getUser function returns a Promise
+  //     if (!account) {
+  //       console.log('User account not found');
+  //       return;
+  //     }
+  //     if (!account.isAdmin ){
+  //       showToast("Your account is not Activated Yet", 'info');
+  //       return
+  //     }
+
+  //     const profile = await getUserProfileByAccountId(account.id);
+  //     if (profile) {
+  //       console.log('Profile:', profile);
+  //     } else {
+  //       console.log('Profile not found');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching user profile:', error);
+  //   }
+  // }
+
+  // // Call the async function
+  // getUserProfile();
+
+  const account = await getUser();
+  if (!account) {
+    console.log("User account not found");
+    return null; // Return null if user account not found
+  } else {
+    console.log("User accountfound");
+  }
+  const profile = await getUserProfileByAccountId(account.id);
+  if (!profile) {
+    console.log("Profile  not found");
+    // Return null if user account not found
+  }
+
   return (
     <DefaultLayout>
       <div className="mx-auto max-w-242.5">
@@ -115,10 +159,21 @@ const Profile = () => {
               </div>
             </div>
             <div className="mt-4">
-              <h3 className="mb-1.5 text-2xl font-semibold text-black dark:text-white">
-                Danish Heilium
-              </h3>
-              <p className="font-medium">Ui/Ux Designer</p>
+             
+                {profile ? (
+                  <h3 className="mb-1.5 text-2xl font-semibold text-black dark:text-white">
+                    <span>{profile && profile.firstname}</span>{" "}
+                    <span>{profile && profile.lastname}</span>{" "}
+                  </h3>
+                ) : (
+                  account.isAdmin && (
+                    <Link className="text-blue-300 dark:text-red " href={"/profile/create/"}>CreateProfile</Link>
+                  )
+                )}
+              
+              <p className="font-medium">
+                <span>{profile && profile.role}</span>
+              </p>
               <div className="mx-auto mb-5.5 mt-4.5 grid max-w-94 grid-cols-3 rounded-md border border-stroke py-2.5 shadow-1 dark:border-strokedark dark:bg-[#37404F]">
                 <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
                   <span className="font-semibold text-black dark:text-white">
