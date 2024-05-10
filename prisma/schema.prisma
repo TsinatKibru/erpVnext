@@ -21,13 +21,13 @@ model accounts {
   email        String   @unique
   password     String
   isAdmin      Boolean? @map(name: "isadmin")        // Map to isadmin in the database
-  createdAt    DateTime @default(now()) @map(name: "createdat")  // Map to createdat in the database
-  updatedAt    DateTime @updatedAt @map(name: "updatedat")  // Map to updatedat in the database
+  createdAt    DateTime? @default(now()) @map(name: "createdat")  // Map to createdat in the database
+  updatedAt    DateTime? @updatedAt @map(name: "updatedat")  // Map to updatedat in the database
 
-  employeeProfile employeeProfile? @map(name: "employeeprofile")
+  employeeprofile  employeeprofile?
 }
 
-model employeeProfile {
+model employeeprofile {
   id             Int       @id @default(autoincrement())
   firstname      String?   @map(name: "firstname")     // Map to firstname in the database
   lastname       String?   @map(name: "lastname")      // Map to lastname in the database
@@ -41,8 +41,8 @@ model employeeProfile {
   profilePicture String?   @map(name: "profilepicture")// Map to profilepicture in the database
   role           String?   @map(name: "role")          // Map to role in the database
   
-  createdAt      DateTime  @default(now()) @map(name: "createdat")  // Map to createdat in the database
-  updatedAt      DateTime  @updatedAt @map(name: "updatedat")       // Map to updatedat in the database
+  createdAt      DateTime?  @default(now()) @map(name: "createdat")  // Map to createdat in the database
+  updatedAt      DateTime?  @updatedAt @map(name: "updatedat")       // Map to updatedat in the database
 
   // This field establishes a one-to-one relationship with accounts
   accountId      Int?      @unique

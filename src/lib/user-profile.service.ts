@@ -16,13 +16,13 @@ import {
     getUserProfile,
     updateUserProfile,
   } from './user-profile.dal';
-import { employeeProfile } from '@prisma/client';
+import { employeeprofile } from '@prisma/client';
   
   export async function createUserProfileService(
     data: CreateUserProfileDto,
     accountId: number,
     currentUser: { isAdmin: boolean }
-  ): Promise<employeeProfile> {
+  ): Promise<employeeprofile> {
     if (!currentUser.isAdmin) {
       throw new Error('Unauthorized to create profiles');
     }
@@ -32,7 +32,7 @@ import { employeeProfile } from '@prisma/client';
   export async function getUserProfileService(
   id: number,
   currentUser: User // Type assertion (assuming User is defined as above)
-): Promise<employeeProfile | null> {
+): Promise<employeeprofile | null> {
   if (currentUser.id !== id ) { // Use type assertion here
     throw new Error('Unauthorized to view this profile');
   }
@@ -43,7 +43,7 @@ import { employeeProfile } from '@prisma/client';
     id: number,
     data: UpdateUserProfileDto,
     currentUser: { id: number; isAdmin: boolean }
-  ): Promise<employeeProfile | null> {
+  ): Promise<employeeprofile | null> {
     if ((!currentUser.isAdmin )) {
       throw new Error('Unauthorized to update this profile');
     }
