@@ -16,37 +16,38 @@ datasource db {
 
 
 model accounts {
-  id        Int      @id @default(autoincrement())
-  name      String?
-  email     String   @unique
-  password  String
-  isAdmin     Boolean?        @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           Int       @id @default(autoincrement())
+  name         String?
+  email        String    @unique
+  password     String
+  isadmin     Boolean?  @default(false) @map(name: "isAdmin")
+  createdat   DateTime  @default(now()) @map(name: "createdAt")
+  updatedat   DateTime  @updatedAt @map(name: "updatedAt")
 
-  employeeProfile employeeProfile?
+  employeeprofile employeeProfile?
 }
 
 model employeeProfile {
-  id            Int       @id @default(autoincrement())
-  firstname     String?
-  lastname      String?
-  dateOfBirth   DateTime?
-  gender        String?
-  email         String?
-  phone         String?
-  homeAddress   String?
-  dateOfHire    DateTime?
-  status        String?
-  profilePicture String?
-  role           String?
-  
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id             Int       @id @default(autoincrement())
+  firstname     String?   
+  lastname      String?   
+  dateofbirth  DateTime? @map(name: "dateOfBirth")
+  gender         String?   
+  email          String?   
+  phone          String?   
+  homeaddress   String?   @map(name: "homeAddress")
+  dateofhire   DateTime? @map(name: "dateOfHire")
+  status         String?   
+  profilepicture String?   @map(name: "profilePicture")
+  role           String?   
+
+  createdat     DateTime  @default(now()) @map(name: "createdAt")
+  updatedat     DateTime  @updatedAt @map(name: "updatedAt")
 
   // This field establishes a one-to-one relationship with accounts
-  accountId     Int?      @unique
+  accountid     Int?      @unique @map(name: "accountId")
 
   // This field references the accounts table
-  account       accounts? @relation(fields: [accountId], references: [id])
+  account        accounts? @relation(fields: [accountid], references: [id])
 }
+
