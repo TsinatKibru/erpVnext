@@ -16,38 +16,37 @@ datasource db {
 
 
 model accounts {
-  id           Int       @id @default(autoincrement())
+  id           Int      @id @default(autoincrement())
   name         String?
-  email        String    @unique
+  email        String   @unique
   password     String
-  isadmin     Boolean?  @default(false) @map(name: "isAdmin")
-  createdat   DateTime  @default(now()) @map(name: "createdAt")
-  updatedat   DateTime  @updatedAt @map(name: "updatedAt")
+  isAdmin      Boolean? @map(name: "isadmin")        // Map to isadmin in the database
+  createdAt    DateTime @default(now()) @map(name: "createdat")  // Map to createdat in the database
+  updatedAt    DateTime @updatedAt @map(name: "updatedat")  // Map to updatedat in the database
 
-  employeeprofile employeeProfile?
+  employeeProfile employeeProfile?
 }
 
 model employeeProfile {
   id             Int       @id @default(autoincrement())
-  firstname     String?   
-  lastname      String?   
-  dateofbirth  DateTime? @map(name: "dateOfBirth")
-  gender         String?   
-  email          String?   
-  phone          String?   
-  homeaddress   String?   @map(name: "homeAddress")
-  dateofhire   DateTime? @map(name: "dateOfHire")
-  status         String?   
-  profilepicture String?   @map(name: "profilePicture")
-  role           String?   
-
-  createdat     DateTime  @default(now()) @map(name: "createdAt")
-  updatedat     DateTime  @updatedAt @map(name: "updatedAt")
+  firstName      String?   @map(name: "firstname")     // Map to firstname in the database
+  lastName       String?   @map(name: "lastname")      // Map to lastname in the database
+  dateOfBirth    DateTime? @map(name: "dateofbirth")   // Map to dateofbirth in the database
+  gender         String?   @map(name: "gender")        // Map to gender in the database
+  email          String?   @map(name: "email")         // Map to email in the database
+  phone          String?   @map(name: "phone")         // Map to phone in the database
+  homeAddress    String?   @map(name: "homeaddress")   // Map to homeaddress in the database
+  dateOfHire     DateTime? @map(name: "dateofhire")    // Map to dateofhire in the database
+  status         String?   @map(name: "status")        // Map to status in the database
+  profilePicture String?   @map(name: "profilepicture")// Map to profilepicture in the database
+  role           String?   @map(name: "role")          // Map to role in the database
+  
+  createdAt      DateTime  @default(now()) @map(name: "createdat")  // Map to createdat in the database
+  updatedAt      DateTime  @updatedAt @map(name: "updatedat")       // Map to updatedat in the database
 
   // This field establishes a one-to-one relationship with accounts
-  accountid     Int?      @unique @map(name: "accountId")
+  accountId      Int?      @unique
 
   // This field references the accounts table
-  account        accounts? @relation(fields: [accountid], references: [id])
+  account        accounts? @relation(fields: [accountId], references: [id])
 }
-
