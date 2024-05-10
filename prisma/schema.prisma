@@ -45,7 +45,7 @@ model employeeprofile {
   updatedAt      DateTime?  @updatedAt @map(name: "updatedat")       // Map to updatedat in the database
 
   // This field establishes a one-to-one relationship with accounts
-  accountId      Int?      @unique
+  accountId      Int?      @unique 
 
   // This field references the accounts table
   account        accounts? @relation(fields: [accountId], references: [id])
