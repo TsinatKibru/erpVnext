@@ -24,7 +24,7 @@ model accounts {
   createdAt    DateTime @default(now()) @map(name: "createdat")  // Map to createdat in the database
   updatedAt    DateTime @updatedAt @map(name: "updatedat")  // Map to updatedat in the database
 
-  employeeProfile employeeProfile?
+  employeeProfile employeeProfile? @map(name: "employeeprofile")
 }
 
 model employeeProfile {
